@@ -2,7 +2,7 @@
 
 echo "Installing tailscale"
 
-pacman -Q tailscale || pacman -S tailscale
+pacman -Q tailscale || pacman -S tailscale --no-confirm
 
 echo "Checking Sync"
 
