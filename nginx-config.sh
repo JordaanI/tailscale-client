@@ -1,11 +1,6 @@
 #!/bin/env zsh
 
-path="$1"
-
-if [ -z $path ]; then
-    echo "Needs Path"
-    exit 1
-fi
+path=/etc/nginx/nginx.conf
 
 fecho() {
     echo "$1" >> $path
@@ -34,6 +29,8 @@ fecho "http {"
 
 writeProxy "8096" "jellyfin"
 writeProxy "9000" "mealie"
+writeProxy "6969" "calibre"
+writeProxy "2342" "photoprism"
 
 fecho "}"
 
