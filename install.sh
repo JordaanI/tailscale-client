@@ -7,3 +7,6 @@ fi
 
 ./nginx.sh
 ./tailscale.sh
+
+echo "Enable and start nginx"
+systemctl enable --now nginx
