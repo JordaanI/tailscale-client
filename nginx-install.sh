@@ -2,5 +2,14 @@
 
 echo "Install mainline nginx"
 
-pacman -Q nginx-mainline >> /dev/null || pacman -S nginx-mainline --noconfirm
+## create nginx user
+useradd http
+
+## install nginx
+apt install nginx -y
+
+## Enable the thing
+systemctl enable -now nginx
+
+## Config
 ./nginx-config.sh

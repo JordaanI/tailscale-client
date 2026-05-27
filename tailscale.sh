@@ -1,15 +1,26 @@
-#!/bin/env zsh
+#!/bin/sh
 
 echo "Installing tailscale"
 
-pacman -Q tailscale || pacman -S tailscale --noconfirm
+## Get Deps
+apt install lsb-release curl -y
 
-echo "Checking Sync"
+## Add to repo
+curl -L https://pkgs.tailscale.com/stable/raspbian/$(lsb_release -cs).noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+
+## Get Keys
+echo "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/raspbian $(lsb_release -cs) main" | sudo tee  /etc/apt/sources.list.d/tailscale.list
+
+## Update repo
+apt update -y
+
+## install Tailscale
+apt install tailscale -y
 
 startTailscale() {
     echo "Setting up tailscale"
     systemctl enable --now tailscaled
-    echo $(tailscale up) > tailscale-login.txt
+    echo $(tailscale up --ssh) > tailscale-login.txt
     echo "You're done"
     cat tailscale-login.txt
 }

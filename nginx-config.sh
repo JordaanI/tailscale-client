@@ -20,7 +20,7 @@ writeProxy() {
 echo "" > $path
 
 fecho "user http;"
-fecho "worker_processes 4;"
+fecho "worker_processes auto;"
 fecho ""
 
 fecho "events { worker_connections 1024; }"
@@ -31,7 +31,12 @@ writeProxy "8096" "jellyfin"
 writeProxy "9000" "mealie"
 writeProxy "6969" "calibre"
 writeProxy "2342" "photoprism"
+writeProxy "5055" "seerr"
 
 fecho "}"
+
+## Load the config just written
+
+systemctl restart nginx
 
 echo "Finished nginx config"
